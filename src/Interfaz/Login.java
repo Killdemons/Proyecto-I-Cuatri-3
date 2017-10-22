@@ -1,6 +1,7 @@
 package Interfaz;
 
 import Logica.LoginLogica;
+import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JFrame {
 
@@ -16,7 +17,12 @@ public class Login extends javax.swing.JFrame {
     public void login(){
         String username = txtUsername.getText();
         String password = txtPassword.getText();
-        LoginLogica.verification(username,password);
+        boolean verification = LoginLogica.verification(username,password);
+        if(verification==true){
+            dispose();
+            MenuAdmin ven = new MenuAdmin();
+            ven.setVisible(true);
+        }
     }
 
     /**
@@ -33,7 +39,7 @@ public class Login extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtPassword = new javax.swing.JPasswordField();
         btnJoin = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnSignup = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
@@ -49,10 +55,10 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Sign up");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnSignup.setText("Sign up");
+        btnSignup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnSignupActionPerformed(evt);
             }
         });
 
@@ -77,7 +83,7 @@ public class Login extends javax.swing.JFrame {
                         .addGap(19, 19, 19)
                         .addComponent(btnJoin, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
-                        .addComponent(jButton1)))
+                        .addComponent(btnSignup)))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -94,7 +100,7 @@ public class Login extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnJoin)
-                    .addComponent(jButton1))
+                    .addComponent(btnSignup))
                 .addGap(5, 5, 5))
         );
 
@@ -105,11 +111,11 @@ public class Login extends javax.swing.JFrame {
         login();
     }//GEN-LAST:event_btnJoinActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignupActionPerformed
         dispose();
         Signup ven = new Signup();
         ven.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnSignupActionPerformed
 
     /**
      * @param args the command line arguments
@@ -146,7 +152,7 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnJoin;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnSignup;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPasswordField txtPassword;

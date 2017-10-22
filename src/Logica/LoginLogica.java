@@ -1,23 +1,25 @@
 package Logica;
 
+import Interfaz.MenuAdmin;
 import Archivos.LoginArchivo;
 import javax.swing.JOptionPane;
 
 public class LoginLogica {
 
-    public static void verification(String username, String password) {
+    public static boolean verification(String username, String password) {
         LoginArchivo archivo = new LoginArchivo();
         String arch = archivo.readarchivo();
         String[] info = arch.split(",");
         for (int i = 0; i < info.length; i += 4) {
             if (username.equals(info[i]) && password.equals(info[i + 1])) {
-                JOptionPane.showMessageDialog(null, "Inicio de sesion correcto");
-                break;
+                return true;
             }
             else if(info.length==i+4){
                 JOptionPane.showMessageDialog(null, "Datos ingresados erroneos");
+                return false;
             }
         }
+        return false;
     }
 
     public static void registro(String username, String password, String cedula, String correo) {
