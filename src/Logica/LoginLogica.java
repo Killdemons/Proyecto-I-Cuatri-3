@@ -1,6 +1,5 @@
 package Logica;
 
-import Interfaz.MenuAdmin;
 import Archivos.LoginArchivo;
 import javax.swing.JOptionPane;
 
