@@ -39,4 +39,18 @@ public class MusicaArchivo {
         }
         return inString;
     }
+    public static void regmod(ArrayList musica) {
+        try {
+            File archivo = new File("Musica.txt");
+            archivo.delete();
+            FileWriter escribir = new FileWriter(archivo, true);
+            BufferedWriter outStream = new BufferedWriter(escribir);
+            for (int k = 0; k < musica.size(); k++) {
+                outStream.write(musica.get(k).toString() + "-");
+            }
+            outStream.close();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "No se ha podido registrar el archivo" + e);
+        }
+    }
 }

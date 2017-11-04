@@ -31,6 +31,7 @@ public class MusicaLogica {
                 music.add(musicalist[i+5]);
             }
         }
+        MusicaArchivo.regmod(music);
         return busqueda;
     }
 }

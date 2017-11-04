@@ -26,7 +26,6 @@ public class Musica extends javax.swing.JFrame {
         txtCanciones.setText("");
         txtCancionesmod.setText("");
         spnCantidadmod.setValue(0);
-        
     }
     public void musica(){
         String nombredisco = txtNombredisco.getText();

@@ -17,6 +17,11 @@ public class MenuAdmin extends javax.swing.JFrame {
             Musica ven = new Musica();
             ven.setVisible(true);
         }
+        else if(radMovie.isSelected()){
+            dispose();
+            Pelicula ven = new Pelicula();
+            ven.setVisible(true);
+        }
     }
 
     /**
