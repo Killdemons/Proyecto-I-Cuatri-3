@@ -372,6 +372,7 @@ public class Pelicula extends javax.swing.JFrame {
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         JOptionPane.showMessageDialog(null, "Se elimino correctamente.");
+        limpiar();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
