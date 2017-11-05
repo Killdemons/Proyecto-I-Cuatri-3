@@ -11,8 +11,8 @@ public class PeliculaLogica {
         ArrayList busqueda = new ArrayList();
         ArrayList pelis = new ArrayList();
         PeliculaArchivo archivo = new PeliculaArchivo();
-        String musica = archivo.search();
-        String[] pelislist = musica.split("-");
+        String peli = archivo.search();
+        String[] pelislist = peli.split("-");
         for(int i=0;i<pelislist.length;i+=5){
             if (nombre.equals(pelislist[i])){
                 busqueda.add(pelislist[i]);

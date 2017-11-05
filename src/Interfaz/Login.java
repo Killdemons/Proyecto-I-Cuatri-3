@@ -18,9 +18,14 @@ public class Login extends javax.swing.JFrame {
         String username = txtUsername.getText();
         String password = txtPassword.getText();
         boolean verification = LoginLogica.verification(username,password);
-        if(verification==true){
+        if(verification==true && password.equals("admin")){
             dispose();
             MenuAdmin ven = new MenuAdmin();
+            ven.setVisible(true);
+        }
+        else if(verification==true){
+            dispose();
+            Menu ven = new Menu();
             ven.setVisible(true);
         }
     }

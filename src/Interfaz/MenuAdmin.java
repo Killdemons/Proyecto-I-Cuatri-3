@@ -41,6 +41,7 @@ public class MenuAdmin extends javax.swing.JFrame {
         radPreorden = new javax.swing.JRadioButton();
         radReports = new javax.swing.JRadioButton();
         btnGo = new javax.swing.JButton();
+        txtLogout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu Administrador");
@@ -69,24 +70,33 @@ public class MenuAdmin extends javax.swing.JFrame {
             }
         });
 
+        txtLogout.setText("Logout");
+        txtLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtLogoutActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(radMusic)
+                    .addComponent(radMovie)
+                    .addComponent(radBuys)
+                    .addComponent(radPreorden)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(radMusic)
-                            .addComponent(radMovie)
-                            .addComponent(radBuys)
-                            .addComponent(radPreorden)
-                            .addComponent(radReports)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
-                        .addComponent(btnGo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(radReports)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(btnGo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtLogout)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -104,9 +114,11 @@ public class MenuAdmin extends javax.swing.JFrame {
                 .addComponent(radPreorden)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(radReports)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnGo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGo)
+                    .addComponent(txtLogout))
+                .addContainerGap())
         );
 
         pack();
@@ -115,6 +127,12 @@ public class MenuAdmin extends javax.swing.JFrame {
     private void btnGoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoActionPerformed
         Menuadmin();
     }//GEN-LAST:event_btnGoActionPerformed
+
+    private void txtLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLogoutActionPerformed
+        dispose();
+        Login ven = new Login();
+        ven.setVisible(true);
+    }//GEN-LAST:event_txtLogoutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -160,5 +178,6 @@ public class MenuAdmin extends javax.swing.JFrame {
     private javax.swing.JRadioButton radMusic;
     private javax.swing.JRadioButton radPreorden;
     private javax.swing.JRadioButton radReports;
+    private javax.swing.JButton txtLogout;
     // End of variables declaration//GEN-END:variables
 }
