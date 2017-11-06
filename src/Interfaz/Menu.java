@@ -8,7 +8,6 @@ package Interfaz;
 import Logica.MenuLogica;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 public class Menu extends javax.swing.JFrame {
 
