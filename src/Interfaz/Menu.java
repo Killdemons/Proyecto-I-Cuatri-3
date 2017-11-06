@@ -124,27 +124,6 @@ public class Menu extends javax.swing.JFrame {
         spnMax.setValue(0);
     }
 
-    public void añadircar() {
-        int fila = tblBusqueda.getSelectedRow();
-        try{
-            String nombre,precio,cantidad;
-            if(fila==-1){
-                JOptionPane.showMessageDialog(null, "Seleccione un producto para agregar al carrito","Advertencia",JOptionPane.WARNING_MESSAGE);
-            }
-            else{
-                modelo = (DefaultTableModel) tblBusqueda.getModel();
-                nombre = tblBusqueda.getValueAt(fila, 0).toString();
-                precio = tblBusqueda.getValueAt(fila, 1).toString();
-                cantidad = JOptionPane.showInputDialog(null, "Digite la cantidad que desea comprar:");
-                modelo = (DefaultTableModel) tblCarrito.getModel();
-                String carrito[] = {nombre,precio,cantidad};
-                modelo.addRow(carrito);
-            }
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Error "+e,"Advertencia",JOptionPane.WARNING_MESSAGE);
-        }
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -166,12 +145,6 @@ public class Menu extends javax.swing.JFrame {
         tblBusqueda = new javax.swing.JTable();
         btnBuy = new javax.swing.JButton();
         btnShow = new javax.swing.JButton();
-        btnAddcar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblCarrito = new javax.swing.JTable();
-        btnDelete = new javax.swing.JButton();
-        btnClear = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu");
@@ -204,7 +177,11 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        spnMin.setModel(new javax.swing.SpinnerNumberModel(1, 1, 99999, 1));
+
         lblA.setText("a");
+
+        spnMax.setModel(new javax.swing.SpinnerNumberModel(1, 1, 99999, 1));
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -250,53 +227,7 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        btnShow.setText("Ver detalles");
-
-        btnAddcar.setText("Agregar al carrito");
-        btnAddcar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddcarActionPerformed(evt);
-            }
-        });
-
-        tblCarrito.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Nombre", "Precio", "Cantidad"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tblCarrito.setMaximumSize(new java.awt.Dimension(2147483647, 0));
-        tblCarrito.setMinimumSize(new java.awt.Dimension(45, 0));
-        tblCarrito.setPreferredSize(new java.awt.Dimension(225, 0));
-        jScrollPane1.setViewportView(tblCarrito);
-        if (tblCarrito.getColumnModel().getColumnCount() > 0) {
-            tblCarrito.getColumnModel().getColumn(0).setResizable(false);
-            tblCarrito.getColumnModel().getColumn(1).setResizable(false);
-            tblCarrito.getColumnModel().getColumn(2).setResizable(false);
-        }
-
-        btnDelete.setText("Borrar");
-
-        btnClear.setText("Limpiar carrito");
-
-        jLabel2.setText("Carrito de compras");
+        btnShow.setText("Ver mas");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -304,49 +235,34 @@ public class Menu extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addComponent(btnAddcar)
-                        .addGap(31, 31, 31)
-                        .addComponent(btnShow)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(boxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(boxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnBuscar)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(boxBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnBuscar)
+                                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(boxBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(spnMin, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(lblA)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(spnMax, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                                        .addComponent(spnMin, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblA)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(spnMax, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addComponent(btnDelete)
-                .addGap(27, 27, 27)
-                .addComponent(btnClear)
-                .addGap(29, 29, 29)
+                .addGap(63, 63, 63)
+                .addComponent(btnShow)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnBuy)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(150, 150, 150))
+                .addGap(76, 76, 76))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -365,18 +281,9 @@ public class Menu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnAddcar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnShow, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addGap(1, 1, 1)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBuy)
-                    .addComponent(btnDelete)
-                    .addComponent(btnClear))
+                    .addComponent(btnShow, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuy, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -384,7 +291,10 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        if ("Musica".equals(boxTipo.getSelectedItem())) {
+        if((txtBuscar.getText().equals("Nombre del disco")) || (txtBuscar.getText().equals("Nombre del autor")) || (txtBuscar.getText().equals(""))){
+            buscarprecio(0, 99999, (String) boxTipo.getSelectedItem());
+        }
+        else if ("Musica".equals(boxTipo.getSelectedItem())) {
             if ("Nombre".equals(boxBusqueda.getSelectedItem())) {
                 buscarnombre(txtBuscar.getText(), (String) boxTipo.getSelectedItem());
             } else if ("Autor".equals(boxBusqueda.getSelectedItem())) {
@@ -423,10 +333,6 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuyActionPerformed
 
-    private void btnAddcarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddcarActionPerformed
-        añadircar();
-    }//GEN-LAST:event_btnAddcarActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -463,21 +369,15 @@ public class Menu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> boxBusqueda;
     private javax.swing.JComboBox<String> boxTipo;
-    private javax.swing.JButton btnAddcar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnBuy;
-    private javax.swing.JButton btnClear;
-    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnShow;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblA;
     private javax.swing.JSpinner spnMax;
     private javax.swing.JSpinner spnMin;
     private javax.swing.JTable tblBusqueda;
-    private javax.swing.JTable tblCarrito;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }
