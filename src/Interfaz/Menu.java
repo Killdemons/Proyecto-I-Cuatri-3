@@ -7,8 +7,12 @@ package Interfaz;
 
 import Logica.MenuLogica;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class Menu extends javax.swing.JFrame {
+
+    DefaultTableModel modelo;
 
     /**
      * Creates new form Menu
@@ -25,6 +29,7 @@ public class Menu extends javax.swing.JFrame {
     public void busqueda() {
         if (boxBusqueda.getSelectedItem().equals("Nombre")) {
             txtBuscar.setVisible(true);
+            txtBuscar.setText("Nombre del disco");
             spnMin.setVisible(false);
             spnMax.setVisible(false);
             lblA.setVisible(false);
@@ -44,31 +49,25 @@ public class Menu extends javax.swing.JFrame {
         }
     }
 
-    public void buscarnombre(String nombre, String tipo) {
+    public void buscarnombre(String texto, String tipo) {
         ArrayList buscar = MenuLogica.buscar(tipo);
         String[][] matriz = null;
         int k = 0;
         for (int x = 0; x < buscar.size(); x += 6) {
-            if (nombre.equals((String) buscar.get(x))) {
+            if (texto.equals((String) buscar.get(x))) {
                 matriz = new String[k += 1][3];
             }
         }
         int j = 0;
         for (int i = 0; i < buscar.size(); i += 6) {
-            if (nombre.equals((String) buscar.get(i))) {
+            if (texto.equals((String) buscar.get(i))) {
                 matriz[j][0] = (String) buscar.get(i);
                 matriz[j][1] = (String) buscar.get(i + 1);
                 matriz[j][2] = (String) buscar.get(i + 3);
                 j += 1;
             }
         }
-        tblBusqueda.setModel(new javax.swing.table.DefaultTableModel(
-                matriz,
-                new String[]{
-                    "Nombre", "Autor", "Precio"
-                }
-        ));
-        txtBuscar.setText("");
+        añadirmatriz(matriz);
     }
 
     public void buscarautor(String autor, String tipo) {
@@ -89,13 +88,7 @@ public class Menu extends javax.swing.JFrame {
                 j += 1;
             }
         }
-        tblBusqueda.setModel(new javax.swing.table.DefaultTableModel(
-                matriz,
-                new String[]{
-                    "Nombre", "Autor", "Precio"
-                }
-        ));
-        txtBuscar.setText("");
+        añadirmatriz(matriz);
     }
 
     public void buscarprecio(int minimo, int maximo, String tipo) {
@@ -116,6 +109,10 @@ public class Menu extends javax.swing.JFrame {
                 j += 1;
             }
         }
+        añadirmatriz(matriz);
+    }
+
+    public void añadirmatriz(String[][] matriz) {
         tblBusqueda.setModel(new javax.swing.table.DefaultTableModel(
                 matriz,
                 new String[]{
@@ -123,6 +120,29 @@ public class Menu extends javax.swing.JFrame {
                 }
         ));
         txtBuscar.setText("");
+        spnMin.setValue(0);
+        spnMax.setValue(0);
+    }
+
+    public void añadircar() {
+        int fila = tblBusqueda.getSelectedRow();
+        try{
+            String nombre,precio,cantidad;
+            if(fila==-1){
+                JOptionPane.showMessageDialog(null, "Seleccione un producto para agregar al carrito","Advertencia",JOptionPane.WARNING_MESSAGE);
+            }
+            else{
+                modelo = (DefaultTableModel) tblBusqueda.getModel();
+                nombre = tblBusqueda.getValueAt(fila, 0).toString();
+                precio = tblBusqueda.getValueAt(fila, 1).toString();
+                cantidad = JOptionPane.showInputDialog(null, "Digite la cantidad que desea comprar:");
+                modelo = (DefaultTableModel) tblCarrito.getModel();
+                String carrito[] = {nombre,precio,cantidad};
+                modelo.addRow(carrito);
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Error "+e,"Advertencia",JOptionPane.WARNING_MESSAGE);
+        }
     }
 
     /**
@@ -144,6 +164,14 @@ public class Menu extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblBusqueda = new javax.swing.JTable();
+        btnBuy = new javax.swing.JButton();
+        btnShow = new javax.swing.JButton();
+        btnAddcar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblCarrito = new javax.swing.JTable();
+        btnDelete = new javax.swing.JButton();
+        btnClear = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu");
@@ -209,6 +237,66 @@ public class Menu extends javax.swing.JFrame {
             }
         });
         jScrollPane2.setViewportView(tblBusqueda);
+        if (tblBusqueda.getColumnModel().getColumnCount() > 0) {
+            tblBusqueda.getColumnModel().getColumn(0).setResizable(false);
+            tblBusqueda.getColumnModel().getColumn(1).setResizable(false);
+            tblBusqueda.getColumnModel().getColumn(2).setResizable(false);
+        }
+
+        btnBuy.setText("Comprar");
+        btnBuy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuyActionPerformed(evt);
+            }
+        });
+
+        btnShow.setText("Ver detalles");
+
+        btnAddcar.setText("Agregar al carrito");
+        btnAddcar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddcarActionPerformed(evt);
+            }
+        });
+
+        tblCarrito.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nombre", "Precio", "Cantidad"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblCarrito.setMaximumSize(new java.awt.Dimension(2147483647, 0));
+        tblCarrito.setMinimumSize(new java.awt.Dimension(45, 0));
+        tblCarrito.setPreferredSize(new java.awt.Dimension(225, 0));
+        jScrollPane1.setViewportView(tblCarrito);
+        if (tblCarrito.getColumnModel().getColumnCount() > 0) {
+            tblCarrito.getColumnModel().getColumn(0).setResizable(false);
+            tblCarrito.getColumnModel().getColumn(1).setResizable(false);
+            tblCarrito.getColumnModel().getColumn(2).setResizable(false);
+        }
+
+        btnDelete.setText("Borrar");
+
+        btnClear.setText("Limpiar carrito");
+
+        jLabel2.setText("Carrito de compras");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -217,27 +305,48 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(boxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnBuscar)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(boxBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                        .addGap(61, 61, 61)
+                        .addComponent(btnAddcar)
+                        .addGap(31, 31, 31)
+                        .addComponent(btnShow)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(boxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnBuscar)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(spnMin, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(lblA)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(spnMax, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                                        .addComponent(boxBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(spnMin, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(lblA)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(spnMax, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addComponent(btnDelete)
+                .addGap(27, 27, 27)
+                .addComponent(btnClear)
+                .addGap(29, 29, 29)
+                .addComponent(btnBuy)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(150, 150, 150))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,7 +364,20 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(208, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnAddcar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnShow, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addGap(1, 1, 1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBuy)
+                    .addComponent(btnDelete)
+                    .addComponent(btnClear))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -270,8 +392,7 @@ public class Menu extends javax.swing.JFrame {
             } else if ("Precio".equals(boxBusqueda.getSelectedItem())) {
                 buscarprecio((int) spnMin.getValue(), (int) spnMax.getValue(), (String) boxTipo.getSelectedItem());
             }
-        }
-        else if ("Pelicula".equals(boxTipo.getSelectedItem())) {
+        } else if ("Pelicula".equals(boxTipo.getSelectedItem())) {
             if ("Nombre".equals(boxBusqueda.getSelectedItem())) {
                 buscarnombre(txtBuscar.getText(), (String) boxTipo.getSelectedItem());
             } else if ("Autor".equals(boxBusqueda.getSelectedItem())) {
@@ -297,6 +418,14 @@ public class Menu extends javax.swing.JFrame {
     private void txtBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBuscarMouseClicked
         txtBuscar.setText("");
     }//GEN-LAST:event_txtBuscarMouseClicked
+
+    private void btnBuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuyActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBuyActionPerformed
+
+    private void btnAddcarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddcarActionPerformed
+        añadircar();
+    }//GEN-LAST:event_btnAddcarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -334,13 +463,21 @@ public class Menu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> boxBusqueda;
     private javax.swing.JComboBox<String> boxTipo;
+    private javax.swing.JButton btnAddcar;
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnBuy;
+    private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnShow;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblA;
     private javax.swing.JSpinner spnMax;
     private javax.swing.JSpinner spnMin;
     private javax.swing.JTable tblBusqueda;
+    private javax.swing.JTable tblCarrito;
     private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }
