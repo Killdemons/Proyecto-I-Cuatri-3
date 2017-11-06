@@ -12,11 +12,12 @@ import javax.swing.table.DefaultTableModel;
 
 public class Menu extends javax.swing.JFrame {
 
-    DefaultTableModel modelo;
 
     /**
      * Creates new form Menu
      */
+    public ArrayList listamusica = MenuLogica.buscar("Musica");
+    public ArrayList listapelicula = MenuLogica.buscar("Pelicula");
     public Menu() {
         initComponents();
         setResizable(false);
@@ -145,6 +146,7 @@ public class Menu extends javax.swing.JFrame {
         tblBusqueda = new javax.swing.JTable();
         btnBuy = new javax.swing.JButton();
         btnShow = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu");
@@ -227,7 +229,19 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
-        btnShow.setText("Ver mas");
+        btnShow.setText("Ver");
+        btnShow.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnShowActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Logout");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -258,11 +272,13 @@ public class Menu extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(63, 63, 63)
-                .addComponent(btnShow)
+                .addGap(34, 34, 34)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnBuy)
-                .addGap(76, 76, 76))
+                .addComponent(btnShow, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53)
+                .addComponent(btnBuy, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -283,8 +299,9 @@ public class Menu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnShow, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuy, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnBuy, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         pack();
@@ -330,8 +347,36 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBuscarMouseClicked
 
     private void btnBuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuyActionPerformed
-        // TODO add your handling code here:
+        String nombre;
+        int precio, cantidad;
+        int fila = tblBusqueda.getSelectedRow();
+        if(fila==-1){
+            JOptionPane.showMessageDialog(null, "Seleccione un disco para comprar","Mensaje",JOptionPane.WARNING_MESSAGE);
+        }else{
+            nombre = tblBusqueda.getValueAt(fila, 0).toString();
+            precio = Integer.parseInt(tblBusqueda.getValueAt(fila, 2).toString());
+            cantidad = Integer.parseInt(JOptionPane.showInputDialog(null, "Cantidad de discos a comprar:"));
+            MenuLogica.compras(boxTipo.getSelectedItem().toString(), nombre, precio, cantidad,listamusica,listapelicula);
+        }
+
     }//GEN-LAST:event_btnBuyActionPerformed
+
+    private void btnShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnShowActionPerformed
+        int fila = tblBusqueda.getSelectedRow();
+        if(fila==-1){
+            JOptionPane.showMessageDialog(null, "Seleccione un disco para ver el Preview","Mensaje",JOptionPane.WARNING_MESSAGE);
+        }else{
+            Ver ven = new Ver();
+            ven.config(boxTipo.getSelectedItem().toString(), tblBusqueda.getValueAt(fila, 0).toString());
+            ven.setVisible(true);
+        }
+    }//GEN-LAST:event_btnShowActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        dispose();
+        Login ven = new Login();
+        ven.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -372,6 +417,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnBuy;
     private javax.swing.JButton btnShow;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblA;
