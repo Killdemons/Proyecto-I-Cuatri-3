@@ -20,8 +20,8 @@ import javazoom.jl.player.Player;
  */
 public class Ver extends javax.swing.JFrame {
 
-    public String archi, name = "yolo";
-    URL direcion;
+    public String archi, name;
+    URL dir;
     Player reproductor;
 
     public Ver() {
@@ -34,7 +34,7 @@ public class Ver extends javax.swing.JFrame {
         archi = tipo;
         name = nombre;
         if (tipo.equals("Musica")) {
-            lblPreview.setVisible(false);
+            pnlVideo.setVisible(false);
             txtCanciones.setVisible(true);
             lblInfo.setText("Canciones del disco " + nombre + ":");
             ArrayList busqueda = new ArrayList();
@@ -52,7 +52,7 @@ public class Ver extends javax.swing.JFrame {
 
         } else if (tipo.equals("Pelicula")) {
             txtCanciones.setVisible(false);
-            lblPreview.setVisible(true);
+            pnlVideo.setVisible(true);
             lblInfo.setText("Trailer de " + nombre + ":");
         }
     }
@@ -62,11 +62,23 @@ public class Ver extends javax.swing.JFrame {
         while (a <= 10) {
             try {
                 FileInputStream fis;
-                Player player;
                 fis = new FileInputStream(name + ".mp3");
                 BufferedInputStream bis = new BufferedInputStream(fis);
-                player = new Player(bis);
-                player.play();
+                reproductor = new Player(bis);
+                reproductor.play();
+            } catch (JavaLayerException | FileNotFoundException e) {
+            }
+        }
+    }
+    public void movie(){
+        int a = 5;
+        while (a <= 10) {
+            try {
+                FileInputStream fis;
+                fis = new FileInputStream(name + ".mp4");
+                BufferedInputStream bis = new BufferedInputStream(fis);
+                reproductor = new Player(bis);
+                reproductor.play();
             } catch (JavaLayerException | FileNotFoundException e) {
             }
         }
@@ -81,16 +93,16 @@ public class Ver extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblPreview = new javax.swing.JLabel();
         lblInfo = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtCanciones = new javax.swing.JTextArea();
         btnPlay = new javax.swing.JButton();
+        pnlVideo = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Preview");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(lblPreview, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 310, 153));
         getContentPane().add(lblInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 310, 19));
 
         jButton1.setText("Atras");
@@ -106,7 +118,7 @@ public class Ver extends javax.swing.JFrame {
         txtCanciones.setRows(5);
         jScrollPane1.setViewportView(txtCanciones);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 310, 153));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 33, 310, 160));
 
         btnPlay.setText("Reproducir");
         btnPlay.addActionListener(new java.awt.event.ActionListener() {
@@ -115,6 +127,7 @@ public class Ver extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnPlay, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 196, -1, -1));
+        getContentPane().add(pnlVideo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 310, 160));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -126,6 +139,9 @@ public class Ver extends javax.swing.JFrame {
     private void btnPlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlayActionPerformed
         if (archi.equals("Musica")) {
             cancion();
+        }
+        else if(archi.equals("Pelicula")){
+            
         }
     }//GEN-LAST:event_btnPlayActionPerformed
 
@@ -177,7 +193,7 @@ public class Ver extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblInfo;
-    private javax.swing.JLabel lblPreview;
+    private javax.swing.JPanel pnlVideo;
     private javax.swing.JTextArea txtCanciones;
     // End of variables declaration//GEN-END:variables
 }

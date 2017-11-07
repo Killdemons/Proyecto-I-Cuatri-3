@@ -11,12 +11,10 @@ import javax.swing.JOptionPane;
 
 public class Menu extends javax.swing.JFrame {
 
-
-    /**
-     * Creates new form Menu
-     */
     public ArrayList listamusica = MenuLogica.buscar("Musica");
     public ArrayList listapelicula = MenuLogica.buscar("Pelicula");
+    public String Username;
+    
     public Menu() {
         initComponents();
         setResizable(false);
@@ -355,7 +353,8 @@ public class Menu extends javax.swing.JFrame {
             nombre = tblBusqueda.getValueAt(fila, 0).toString();
             precio = Integer.parseInt(tblBusqueda.getValueAt(fila, 2).toString());
             cantidad = Integer.parseInt(JOptionPane.showInputDialog(null, "Cantidad de discos a comprar:"));
-            MenuLogica.compras(boxTipo.getSelectedItem().toString(), nombre, precio, cantidad,listamusica,listapelicula);
+            ArrayList user = MenuLogica.Infouser(Username);
+            MenuLogica.compras(boxTipo.getSelectedItem().toString(), nombre, precio, cantidad,listamusica,listapelicula,user);
         }
 
     }//GEN-LAST:event_btnBuyActionPerformed

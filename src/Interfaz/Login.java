@@ -26,6 +26,7 @@ public class Login extends javax.swing.JFrame {
         else if(verification==true){
             dispose();
             Menu ven = new Menu();
+            ven.Username=username;
             ven.setVisible(true);
         }
     }

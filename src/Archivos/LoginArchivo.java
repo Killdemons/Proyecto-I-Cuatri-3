@@ -1,4 +1,3 @@
-
 package Archivos;
 
 import java.io.*;
@@ -15,7 +14,6 @@ public class LoginArchivo {
             BufferedReader inStream = new BufferedReader(leer);
             inString = inStream.readLine();
             inStream.close();
-
         } catch (IOException e) {
             System.out.println("no se ha podido leer el archivo" + e);
         }
