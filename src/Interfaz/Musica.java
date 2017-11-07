@@ -1,6 +1,8 @@
 package Interfaz;
 
+import Logica.Email;
 import Logica.MusicaLogica;
+import Logica.MenuLogica;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -8,13 +10,14 @@ public class Musica extends javax.swing.JFrame {
 
     public ArrayList canciones = new ArrayList();
     public int cantidadmod = 0;
-    
+
     public Musica() {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
     }
-    public void limpiar(){
+
+    public void limpiar() {
         txtNombredisco.setText("");
         txtAutor.setText("");
         txtPrecio.setText("");
@@ -27,7 +30,8 @@ public class Musica extends javax.swing.JFrame {
         txtCancionesmod.setText("");
         spnCantidadmod.setValue(0);
     }
-    public void musica(){
+
+    public void musica() {
         String nombredisco = txtNombredisco.getText();
         String autor = txtAutor.getText();
         String categoria = (String) boxCategoria.getSelectedItem();
@@ -36,12 +40,14 @@ public class Musica extends javax.swing.JFrame {
         MusicaLogica.registro(nombredisco, autor, categoria, precio, canciones, cantidad);
         limpiar();
     }
-    public void listacanciones(){
+
+    public void listacanciones() {
         String cancion = txtSong.getText();
         canciones.add(cancion);
-        txtCanciones.setText(txtCanciones.getText()+cancion+"\n");
+        txtCanciones.setText(txtCanciones.getText() + cancion + "\n");
     }
-    public void search(){
+
+    public void search() {
         String buscar = txtSearch.getText();
         ArrayList busqueda = new ArrayList();
         busqueda = MusicaLogica.search(buscar);
@@ -51,18 +57,18 @@ public class Musica extends javax.swing.JFrame {
         txtPrice.setText((String) busqueda.get(3));
         cantidadmod = (Integer.parseInt((String) busqueda.get(5)));
         String[] songs = busqueda.get(4).toString().split(",");
-        for(int i=0; i<songs.length; i++){
-            if(songs.length==i+1){
+        for (int i = 0; i < songs.length; i++) {
+            if (songs.length == i + 1) {
                 String song = Character.toString(songs[i].charAt(1));
-                txtCancionesmod.setText(txtCancionesmod.getText()+song+"\n");
-            }
-            else if(songs[i].length()<=2){
+                txtCancionesmod.setText(txtCancionesmod.getText() + song + "\n");
+            } else if (songs[i].length() <= 2) {
                 String song = Character.toString(songs[i].charAt(1));
-                txtCancionesmod.setText(txtCancionesmod.getText()+song+"\n");
+                txtCancionesmod.setText(txtCancionesmod.getText() + song + "\n");
             }
         }
     }
-    public void modificar(){
+
+    public void modificar() {
         String nombredisco = txtNamedisc.getText();
         String autor = txtAutormod.getText();
         String categoria = (String) boxCategoriamod.getSelectedItem();
@@ -70,12 +76,15 @@ public class Musica extends javax.swing.JFrame {
         int cantidad = (int) spnCantidadmod.getValue() + cantidadmod;
         String song = txtCancionesmod.getText();
         String[] songs = song.split("\n");
-        for(int i=0; i<songs.length;i++){
+        for (int i = 0; i < songs.length; i++) {
             canciones.add(songs[i]);
         }
         MusicaLogica.registro(nombredisco, autor, categoria, precio, canciones, cantidad);
+        MenuLogica.validarpreorden("Musica");
         limpiar();
     }
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -184,33 +193,32 @@ public class Musica extends javax.swing.JFrame {
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(spnCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel3)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(boxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtNombredisco, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel5)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtSong, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addGap(6, 6, 6)
-                                            .addComponent(btnAdd)))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtAutor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(boxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtNombredisco, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtSong, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(btnAdd)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(72, 72, 72)
                         .addComponent(btnSave)
@@ -259,6 +267,8 @@ public class Musica extends javax.swing.JFrame {
         jTabbedPane1.addTab("Crear", jPanel1);
 
         jLabel7.setText("Nombre del Disco:");
+
+        txtNamedisc.setEditable(false);
 
         jLabel8.setText("Autor:");
 
