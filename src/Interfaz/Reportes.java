@@ -28,9 +28,13 @@ public class Reportes extends javax.swing.JFrame {
                 mayor.add(ventas.get(i+2).toString());
             }
             else if(Integer.parseInt(ventas.get(i+1).toString())<Integer.parseInt(menor.get(i+1).toString())){
-                
+                menor.clear();
+                menor.add(ventas.get(i).toString());
+                menor.add(ventas.get(i+1).toString());
+                menor.add(ventas.get(i+2).toString());
             }
         }
+        
     }
 
     /**
