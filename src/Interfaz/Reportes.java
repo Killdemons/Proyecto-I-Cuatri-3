@@ -10,10 +10,26 @@ public class Reportes extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
     }
+    
     public void ventacategoria(){
-        ArrayList compras = Graficas.Compras();
-        if((boxTipo.getSelectedItem().equals("Musica")) && boxReport.getSelectedItem().equals("Venta por categoria")){
-            System.out.println("si");
+        ArrayList ventas = Graficas.ventacategoria(boxTipo.getSelectedItem().toString(),boxReport.getSelectedItem().toString());
+        ArrayList mayor = new ArrayList();
+        ArrayList menor = new ArrayList();
+        for (int i = 0; i < ventas.size(); i+=3) {
+            if((mayor.isEmpty()) && (menor.isEmpty())){
+                mayor.add(ventas.get(i).toString());
+                mayor.add(ventas.get(i+1).toString());
+                mayor.add(ventas.get(i+2).toString());
+            }
+            else if(Integer.parseInt(ventas.get(i+1).toString())>Integer.parseInt(mayor.get(i+1).toString())){
+                mayor.clear();
+                mayor.add(ventas.get(i).toString());
+                mayor.add(ventas.get(i+1).toString());
+                mayor.add(ventas.get(i+2).toString());
+            }
+            else if(Integer.parseInt(ventas.get(i+1).toString())<Integer.parseInt(menor.get(i+1).toString())){
+                
+            }
         }
     }
 

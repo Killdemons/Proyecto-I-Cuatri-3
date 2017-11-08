@@ -2,6 +2,7 @@ package Logica;
 
 import java.util.Properties;
 import javax.mail.BodyPart;
+import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -39,7 +40,7 @@ public class Email {
             t.sendMessage(mensaje, mensaje.getAllRecipients());
             t.close();
             return true;
-        } catch (Exception e) {
+        } catch (MessagingException e) {
             System.out.println("Error---- "+e);
             return false;
         }

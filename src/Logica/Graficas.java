@@ -9,8 +9,6 @@ import org.jfree.chart.plot.*;
 
 public class Graficas {
     
-    // Videoguia para grafico: https://www.youtube.com/watch?v=Veto2BUKZ3I
-    
     public static String name1, name2, comp1, comp2, title;
     public static int valor1, valor2;
     
@@ -21,7 +19,7 @@ public class Graficas {
         JFreeChart grafica = ChartFactory.createBarChart3D(title, comp1, comp2, data, PlotOrientation.VERTICAL, true, true, false);
         ChartPanel contenedor = new ChartPanel(grafica);
         JFrame ventana = new JFrame("Reportes");
-        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         ventana.add(contenedor);
         ventana.setSize(400, 200);
         ventana.setLocationRelativeTo(null);
@@ -43,6 +41,54 @@ public class Graficas {
             compras.add(compra[i + 6]);
         }
         return compras;
+    }
+    
+    public static ArrayList ventacategoria(String boxTipo, String boxReport){
+        ArrayList compras = Compras();
+        ArrayList musica = MenuLogica.buscar("Musica");
+        ArrayList pelicula = MenuLogica.buscar("Pelicula");
+        ArrayList ventas = new ArrayList();
+        if((boxTipo.equals("Musica")) && boxReport.equals("Venta por categoria")){
+            for (int i = 0; i < compras.size(); i+=7) {
+                for (int j = 0; j < musica.size(); j+=6) {
+                    if(compras.get(i+4).toString().equals(musica.get(i).toString())){
+                        String categoria = musica.get(i+3).toString();
+                        for (int k = 0; k < ventas.size(); k+=3) {
+                            if(ventas.get(i).toString().equals(compras.get(i+4).toString())){
+                                int cantidad = Integer.parseInt(compras.get(i+5).toString())+Integer.parseInt(ventas.get(i+2).toString());
+                                ventas.set(i+2, cantidad);
+                            }
+                            else{
+                                ventas.add(compras.get(i+4).toString());
+                                ventas.add(compras.get(i+5).toString());
+                                ventas.add(categoria);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        else if((boxTipo.equals("Pelicula")) && boxReport.equals("Venta por categoria")){
+            for (int i = 0; i < compras.size(); i+=7) {
+                for (int j = 0; j < pelicula.size(); j+=6) {
+                    if(compras.get(i+4).toString().equals(pelicula.get(i).toString())){
+                        String categoria = pelicula.get(i+3).toString();
+                        for (int k = 0; k < ventas.size(); k+=3) {
+                            if(ventas.get(i).toString().equals(compras.get(i+4).toString())){
+                                int cantidad = Integer.parseInt(compras.get(i+5).toString())+Integer.parseInt(ventas.get(i+2).toString());
+                                ventas.set(i+2, cantidad);
+                            }
+                            else{
+                                ventas.add(compras.get(i+4).toString());
+                                ventas.add(compras.get(i+5).toString());
+                                ventas.add(categoria);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return ventas;
     }
     
     public static void main() {
