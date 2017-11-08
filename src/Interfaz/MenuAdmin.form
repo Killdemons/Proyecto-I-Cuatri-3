@@ -34,19 +34,13 @@
                   <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="radMusic" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="radMovie" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="radBuys" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="radPreorden" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="radReports" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
-                              <Component id="btnGo" min="-2" pref="70" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <EmptySpace min="21" pref="21" max="-2" attributes="0"/>
+                      <Component id="btnGo" min="-2" pref="70" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="txtLogout" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="radReports" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -62,12 +56,8 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="radMovie" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="radBuys" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="radPreorden" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
               <Component id="radReports" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="12" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnGo" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtLogout" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -97,22 +87,6 @@
           <ComponentRef name="btnselection"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Catalogo de peliculas"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JRadioButton" name="radBuys">
-      <Properties>
-        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-          <ComponentRef name="btnselection"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Lista de compras"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JRadioButton" name="radPreorden">
-      <Properties>
-        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-          <ComponentRef name="btnselection"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Lista de preordenes"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JRadioButton" name="radReports">

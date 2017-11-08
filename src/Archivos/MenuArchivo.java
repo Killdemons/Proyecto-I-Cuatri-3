@@ -80,4 +80,17 @@ public class MenuArchivo {
             System.out.println("No se ha podido registrar el archivo" + e);
         }
     }
+    public static String Compras(){
+        String inString = "";
+        try {
+            File archivo = new File("Compras.txt");
+            FileReader leer = new FileReader(archivo);
+            BufferedReader inStream = new BufferedReader(leer);
+            inString = inStream.readLine();
+            inStream.close();
+        } catch (IOException e) {
+            System.out.println("No se ha podido leer el archivo" + e);
+        }
+        return inString;
+    }
 }

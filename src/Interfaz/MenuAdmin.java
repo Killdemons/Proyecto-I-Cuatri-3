@@ -22,6 +22,11 @@ public class MenuAdmin extends javax.swing.JFrame {
             Pelicula ven = new Pelicula();
             ven.setVisible(true);
         }
+        else if(radReports.isSelected()){
+            dispose();
+            Reportes ven = new Reportes();
+            ven.setVisible(true);
+        }
     }
 
     /**
@@ -37,8 +42,6 @@ public class MenuAdmin extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         radMusic = new javax.swing.JRadioButton();
         radMovie = new javax.swing.JRadioButton();
-        radBuys = new javax.swing.JRadioButton();
-        radPreorden = new javax.swing.JRadioButton();
         radReports = new javax.swing.JRadioButton();
         btnGo = new javax.swing.JButton();
         txtLogout = new javax.swing.JButton();
@@ -53,12 +56,6 @@ public class MenuAdmin extends javax.swing.JFrame {
 
         btnselection.add(radMovie);
         radMovie.setText("Catalogo de peliculas");
-
-        btnselection.add(radBuys);
-        radBuys.setText("Lista de compras");
-
-        btnselection.add(radPreorden);
-        radPreorden.setText("Lista de preordenes");
 
         btnselection.add(radReports);
         radReports.setText("Reportes");
@@ -87,16 +84,12 @@ public class MenuAdmin extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(radMusic)
                     .addComponent(radMovie)
-                    .addComponent(radBuys)
-                    .addComponent(radPreorden)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(radReports)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addComponent(btnGo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(21, 21, 21)
+                        .addComponent(btnGo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtLogout)))
+                        .addComponent(txtLogout))
+                    .addComponent(radReports))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -109,12 +102,8 @@ public class MenuAdmin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(radMovie)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(radBuys)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(radPreorden)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(radReports)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGo)
                     .addComponent(txtLogout))
@@ -173,10 +162,8 @@ public class MenuAdmin extends javax.swing.JFrame {
     private javax.swing.JButton btnGo;
     private javax.swing.ButtonGroup btnselection;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JRadioButton radBuys;
     private javax.swing.JRadioButton radMovie;
     private javax.swing.JRadioButton radMusic;
-    private javax.swing.JRadioButton radPreorden;
     private javax.swing.JRadioButton radReports;
     private javax.swing.JButton txtLogout;
     // End of variables declaration//GEN-END:variables
