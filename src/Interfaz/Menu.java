@@ -11,9 +11,9 @@ import javax.swing.JOptionPane;
 
 public class Menu extends javax.swing.JFrame {
 
-    public ArrayList listamusica = MenuLogica.buscar("Musica");
-    public ArrayList listapelicula = MenuLogica.buscar("Pelicula");
-    public String Username;
+    ArrayList listamusica = MenuLogica.buscar("Musica");
+    ArrayList listapelicula = MenuLogica.buscar("Pelicula");
+    String Username;
     
     public Menu() {
         initComponents();
@@ -109,6 +109,27 @@ public class Menu extends javax.swing.JFrame {
         }
         añadirmatriz(matriz);
     }
+    
+    public void buscarprecio2(int minimo, int maximo, String tipo) {
+        ArrayList buscar = MenuLogica.buscar(tipo);
+        String[][] matriz = null;
+        int k = 0;
+        for (int x = 0; x < buscar.size(); x += 5) {
+            if ((minimo <= Integer.parseInt((String) buscar.get(x + 3))) & (maximo >= Integer.parseInt((String) buscar.get(x + 3)))) {
+                matriz = new String[k += 1][3];
+            }
+        }
+        int j = 0;
+        for (int i = 0; i < buscar.size(); i += 5) {
+            if ((minimo <= Integer.parseInt((String) buscar.get(i + 3))) & (maximo >= Integer.parseInt((String) buscar.get(i + 3)))) {
+                matriz[j][0] = (String) buscar.get(i);
+                matriz[j][1] = (String) buscar.get(i + 1);
+                matriz[j][2] = (String) buscar.get(i + 3);
+                j += 1;
+            }
+        }
+        añadirmatriz(matriz);
+    }
 
     public void añadirmatriz(String[][] matriz) {
         tblBusqueda.setModel(new javax.swing.table.DefaultTableModel(
@@ -118,8 +139,6 @@ public class Menu extends javax.swing.JFrame {
                 }
         ));
         txtBuscar.setText("");
-        spnMin.setValue(0);
-        spnMax.setValue(0);
     }
 
     /**
@@ -305,8 +324,11 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        if((txtBuscar.getText().equals("Nombre del disco")) || (txtBuscar.getText().equals("Nombre del autor")) || (txtBuscar.getText().equals(""))){
+        if(("Musica".equals(boxTipo.getSelectedItem())) &&((txtBuscar.getText().equals("Nombre del disco")) || (txtBuscar.getText().equals("Nombre del autor")) || (txtBuscar.getText().equals("")))){
             buscarprecio(0, 99999, (String) boxTipo.getSelectedItem());
+        }
+        else if(("Pelicula".equals(boxTipo.getSelectedItem()))&&((txtBuscar.getText().equals("Nombre del disco")) || (txtBuscar.getText().equals("Nombre del autor")) || (txtBuscar.getText().equals("")))){
+            buscarprecio2(0, 99999, (String) boxTipo.getSelectedItem());
         }
         else if ("Musica".equals(boxTipo.getSelectedItem())) {
             if ("Nombre".equals(boxBusqueda.getSelectedItem())) {
@@ -322,7 +344,7 @@ public class Menu extends javax.swing.JFrame {
             } else if ("Autor".equals(boxBusqueda.getSelectedItem())) {
                 buscarautor(txtBuscar.getText(), (String) boxTipo.getSelectedItem());
             } else if ("Precio".equals(boxBusqueda.getSelectedItem())) {
-                buscarprecio((int) spnMin.getValue(), (int) spnMax.getValue(), (String) boxTipo.getSelectedItem());
+                buscarprecio2((int) spnMin.getValue(), (int) spnMax.getValue(), (String) boxTipo.getSelectedItem());
             }
         }
     }//GEN-LAST:event_btnBuscarActionPerformed

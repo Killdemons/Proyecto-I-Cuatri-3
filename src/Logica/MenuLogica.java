@@ -73,12 +73,13 @@ public class MenuLogica {
             PeliculaArchivo archivo = new PeliculaArchivo();
             String pelis = archivo.search();
             String[] pelilist = pelis.split("-");
-            for (int i = 0; i < pelilist.length; i += 6) {
+            for (int i = 0; i < pelilist.length; i += 5) {
                 busqueda.add(pelilist[i]);
                 busqueda.add(pelilist[i + 1]);
                 busqueda.add(pelilist[i + 2]);
                 busqueda.add(pelilist[i + 3]);
                 busqueda.add(pelilist[i + 4]);
+
             }
         }
         return busqueda;
