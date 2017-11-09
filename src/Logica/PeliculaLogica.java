@@ -6,6 +6,17 @@ public class PeliculaLogica {
     public static void registro (String nombredisco, String autor, String categoria, String precio, int cantidad) {
         PeliculaArchivo.registro(nombredisco, autor, categoria, precio, cantidad);
     }
+    public static boolean validar(String namedisc){
+        PeliculaArchivo archivo = new PeliculaArchivo();
+        String pelis = archivo.search();
+        String[] pelislist = pelis.split("-");
+        for(int i=0;i<pelislist.length;i+=5){
+            if (namedisc.equals(pelislist[i])){
+                return true;
+            }
+        }
+        return false;
+    }
     public static ArrayList search(String nombre){
         ArrayList busqueda = new ArrayList();
         ArrayList pelis = new ArrayList();

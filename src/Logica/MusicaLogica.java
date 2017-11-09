@@ -7,6 +7,17 @@ public class MusicaLogica {
     public static void registro (String nombredisco, String autor, String categoria, String precio, ArrayList canciones, int cantidad) {
         MusicaArchivo.registro(nombredisco, autor, categoria, precio, canciones, cantidad);
     }
+    public static boolean validar(String namedisc){
+        MusicaArchivo archivo = new MusicaArchivo();
+        String musica = archivo.search();
+        String[] musicalist = musica.split("-");
+        for(int i=0;i<musicalist.length;i+=6){
+            if (namedisc.equals(musicalist[i])){
+                return true;
+            }
+        }
+        return false;
+    }
     public static ArrayList search(String namedisc){
         ArrayList busqueda = new ArrayList();
         ArrayList music = new ArrayList();

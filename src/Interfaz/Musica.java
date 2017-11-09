@@ -29,22 +29,33 @@ public class Musica extends javax.swing.JFrame {
         txtCanciones.setText("");
         txtCancionesmod.setText("");
         spnCantidadmod.setValue(0);
+        txtSong.setText("");
     }
 
     public void musica() {
-        String nombredisco = txtNombredisco.getText();
-        String autor = txtAutor.getText();
-        String categoria = (String) boxCategoria.getSelectedItem();
-        String precio = txtPrecio.getText();
-        int cantidad = (int) spnCantidad.getValue();
-        MusicaLogica.registro(nombredisco, autor, categoria, precio, canciones, cantidad);
-        limpiar();
+        if ((txtNombredisco.getText().equals("")) || (txtAutor.getText().equals("")) || (txtPrecio.getText().equals(""))) {
+            JOptionPane.showMessageDialog(null, "No se pueden dejar espacios en blanco, favor rellenar todo el formulario.", "Informacion", JOptionPane.WARNING_MESSAGE);
+        } else {
+            String nombredisco = txtNombredisco.getText();
+            String autor = txtAutor.getText();
+            String categoria = (String) boxCategoria.getSelectedItem();
+            String precio = txtPrecio.getText();
+            int cantidad = (int) spnCantidad.getValue();
+            boolean validar = MusicaLogica.validar(nombredisco);
+            if (validar == true) {
+                JOptionPane.showMessageDialog(null, "Disco ya existente.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            } else if (validar == false) {
+                MusicaLogica.registro(nombredisco, autor, categoria, precio, canciones, cantidad);
+            }
+            limpiar();
+        }
     }
 
     public void listacanciones() {
         String cancion = txtSong.getText();
         canciones.add(cancion);
         txtCanciones.setText(txtCanciones.getText() + cancion + "\n");
+        txtSong.setText("");
     }
 
     public void search() {
@@ -56,15 +67,19 @@ public class Musica extends javax.swing.JFrame {
         boxCategoriamod.setSelectedItem(busqueda.get(2));
         txtPrice.setText((String) busqueda.get(3));
         cantidadmod = (Integer.parseInt((String) busqueda.get(5)));
-        String[] songs = busqueda.get(4).toString().split(",");
-        for (int i = 0; i < songs.length; i++) {
-            if (songs.length == i + 1) {
-                String song = Character.toString(songs[i].charAt(1));
-                txtCancionesmod.setText(txtCancionesmod.getText() + song + "\n");
-            } else if (songs[i].length() <= 2) {
-                String song = Character.toString(songs[i].charAt(1));
-                txtCancionesmod.setText(txtCancionesmod.getText() + song + "\n");
+        String song = "";
+        for (int i = 0; i < busqueda.get(4).toString().length(); i++) {
+            if (",".equals(Character.toString(busqueda.get(4).toString().charAt(i)))) {
+                song += Character.toString(busqueda.get(4).toString().charAt(i));
+                i += 1;
+            } else if ((i > 0) && (i < busqueda.get(4).toString().length() - 1)) {
+                song += Character.toString(busqueda.get(4).toString().charAt(i));
             }
+        }
+        String[] songs = song.split(",");
+        for (int i = 0; i < songs.length; i++) {
+            song = songs[i];
+            txtCancionesmod.setText(txtCancionesmod.getText() + song + "\n");
         }
     }
 
@@ -80,11 +95,9 @@ public class Musica extends javax.swing.JFrame {
             canciones.add(songs[i]);
         }
         MusicaLogica.registro(nombredisco, autor, categoria, precio, canciones, cantidad);
-        MenuLogica.validarpreorden("Musica");
         limpiar();
+        MenuLogica.validarpreorden("Musica");
     }
-
-    
 
     /**
      * This method is called from within the constructor to initialize the form.

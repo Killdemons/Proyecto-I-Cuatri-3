@@ -4,10 +4,12 @@
  * and open the template in the editor.
  */
 package Interfaz;
+
 import Logica.MenuLogica;
 import Logica.PeliculaLogica;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author estudiante
@@ -15,13 +17,14 @@ import javax.swing.JOptionPane;
 public class Pelicula extends javax.swing.JFrame {
 
     public int cantidadmod = 0;
-    
+
     public Pelicula() {
         initComponents();
         setResizable(false);
         setLocationRelativeTo(null);
     }
-    public void limpiar(){
+
+    public void limpiar() {
         txtNombre.setText("");
         txtDirector.setText("");
         txtPrecio.setText("");
@@ -31,16 +34,27 @@ public class Pelicula extends javax.swing.JFrame {
         txtPrice.setText("");
         spnCantidadmod.setValue(0);
     }
-    public void peliculas(){
-        String nombre = txtNombre.getText();
-        String director = txtDirector.getText();
-        String categoría = (String) boxCategoria.getSelectedItem();
-        String precio = txtPrecio.getText();
-        int cantidad = (int) spnCantidad.getValue();
-        PeliculaLogica.registro(nombre, director, categoría, precio, cantidad);
-        limpiar();
+
+    public void peliculas() {
+        if ((txtNombre.getText().equals("")) || (txtDirector.getText().equals("")) || (txtPrecio.getText().equals(""))) {
+            JOptionPane.showMessageDialog(null, "No se pueden dejar espacios en blanco, favor rellenar todo el formulario.", "Informacion", JOptionPane.WARNING_MESSAGE);
+        } else {
+            String nombre = txtNombre.getText();
+            String director = txtDirector.getText();
+            String categoría = (String) boxCategoria.getSelectedItem();
+            String precio = txtPrecio.getText();
+            int cantidad = (int) spnCantidad.getValue();
+            boolean validar = PeliculaLogica.validar(nombre);
+            if (validar == true) {
+                JOptionPane.showMessageDialog(null, "Disco ya existente.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+            } else if (validar == false) {
+                PeliculaLogica.registro(nombre, director, categoría, precio, cantidad);
+            }
+            limpiar();
+        }
     }
-     public void search(){
+
+    public void search() {
         String buscar = txtSearch.getText();
         ArrayList busqueda = new ArrayList();
         busqueda = PeliculaLogica.search(buscar);
@@ -50,7 +64,8 @@ public class Pelicula extends javax.swing.JFrame {
         txtPrice.setText((String) busqueda.get(3));
         cantidadmod = (Integer.parseInt((String) busqueda.get(4)));
     }
-    public void modificar(){
+
+    public void modificar() {
         String nombre = txtNombremod.getText();
         String director = txtDirectormod.getText();
         String categoria = (String) boxCategoriamod.getSelectedItem();
